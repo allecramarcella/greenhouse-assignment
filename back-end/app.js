@@ -33,6 +33,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  store: new Mongostore({
+    mongooseConnection: mongoose.connection
+  })
+}))
+
+app.use(cors({
+  origin: process.env.CORS_ORIGIN,
+  credentials: true
+}))
+      
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
@@ -41,11 +53,7 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true
-}))
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
