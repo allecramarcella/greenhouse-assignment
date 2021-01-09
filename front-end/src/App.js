@@ -2,6 +2,7 @@ import './App.css';
 
 import Logo from '../src/assets/physee_rgb.png'
 import Greenhouse from '../src/assets/Crops2.jpg'
+import TomatoDisplay from './components/tomatoesDisplay/TomatoDisplay';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <img src={Greenhouse} alt='Greenhouse'/>
         </div>
         <div className='header-info'>
-          <h1>test</h1>
+          <TomatoDisplay />
         </div>
       </header>
       <footer className='footer'>

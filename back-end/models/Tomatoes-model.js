@@ -59,10 +59,10 @@ const tomatoesSchema = new Schema({
         },
         alias: 'soil condition',
     },
-    production: {
+    production: [{
         type: Schema.Types.ObjectId,
         "ref": "Production",
-    },
+    }],
 })
 
 
