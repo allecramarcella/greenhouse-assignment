@@ -3,48 +3,67 @@ const Schema = mongoose.Schema
 
 const tomatoesSchema = new Schema({
     name: String,
-    harvestPerYear: Number,
-    numberOfPlants: Number, 
+    harvestPerYear: {
+        type: Number,
+        alias: 'harvest per year',
+    },
+    numberOfPlants: {
+        type: Number,
+        alias: 'number of plants',
+    },
     environmentCondition: {
-        lightIntensity: {
-            low: Number,
-            high: Number,
-            unit: String,
+        type: {
+            lightIntensity: {
+                type: {
+                    low: Number,
+                    high: Number,
+                    unit: String,
+                },
+                alias: 'light intensity',
+            },
+            relativeHumidity: {
+                type: {
+                    low: Number,
+                    high: Number,
+                    unit: String,
+                },
+                alias: 'relative humidity',
+            },
+            temperature: {
+                daytime: {
+                    low: Number,
+                    high: Number,
+                    unit: String,
+                },
+                nighttime: {
+                    low: Number,
+                    high: Number,
+                    unit: String,
+                }
+            }
         },
-        relativeHumidity: {
-            low: Number,
-            high: Number,
-            unit: String,
-        },
-        temperature: {
-            daytime: {
+        alias: 'environment condition',
+    },
+    soilCondition: {
+        type: {
+            moisture: {
                 low: Number,
                 high: Number,
                 unit: String,
             },
-            nighttime: {
+            pH: {
                 low: Number,
                 high: Number,
                 unit: String,
-            }
-        }
-    },
-    soilCondition: {
-        moisture: {
-            low: Number,
-            high: Number,
-            unit: String,
+            },
         },
-        pH: {
-            low: Number,
-            high: Number,
-            unit: String,
-        },
+        alias: 'soil condition',
     },
     production: {
         type: Schema.Types.ObjectId,
         "ref": "Production",
     },
 })
+
 
 module.exports = mongoose.model("Tomatoes", tomatoesSchema);

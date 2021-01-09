@@ -5,9 +5,17 @@ const environmentSchema = new Schema({
     time: Number,
     sensorId: String,
     data: {
-        lightIntensity: Number,
-        relativeHumidity: Number,
-        temperature: Number,
+        type: {
+            lightIntensity: {
+                type: Number,
+                alias: 'light intensity',
+            },
+            relativeHumidity: {
+                type: Number,
+                alias: 'relative humidity',
+            },
+            temperature: Number,
+        },
     },
 })
 

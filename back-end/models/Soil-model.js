@@ -10,4 +10,4 @@ const soilSchema = new Schema({
     },
 })
 
-module.exports = mongoose.model("Environment", soilSchema);
+module.exports = mongoose.model("Soil", soilSchema);
