@@ -1,7 +1,6 @@
 import './App.css';
 
 import Logo from '../src/assets/physee_rgb.png'
-import Greenhouse from '../src/assets/Crops2.jpg'
 import TomatoDisplay from './components/tomatoesDisplay/TomatoDisplay';
 import ProductionDisplay from './components/productionDisplay/ProductionDisplay';
 import TemperatureDisplay from './components/temperatureData/TemperatureDisplay';

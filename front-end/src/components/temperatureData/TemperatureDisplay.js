@@ -7,7 +7,9 @@ import './TemperatureDisplay.css'
 export default class TemperatureDisplay extends Component {
 
     state = {
-        temperatureData: []
+        temperatureData: [],
+        secondHighestTemp: '',
+        daysWithSecondHighTemp: []
     }
 
     dataService = new DataService()
@@ -26,28 +28,77 @@ export default class TemperatureDisplay extends Component {
 
     convertDate = (temperatureData) => {
         const temperatureDataConverted = temperatureData.map(data => {
-            const convertedDate = new Date(data.time).toLocaleString()
+            const convertedDate = new Date(data.time).toLocaleString().slice(0, 10)
             data.time = convertedDate
             return data
         })
 
         this.setState({
             temperatureData: temperatureDataConverted
-        }, () => this.findDaysSecondHighTemp(this.state.temperatureData))
+        }, () => this.findSecondHighTemp(this.state.temperatureData))
     }
 
-    findDaysSecondHighTemp= (data) => {
-        console.log('data', data)
+    findSecondHighTemp = (data) => {
+        const tempSortedByHight = data.map(data => {
+            let temperature
+            if(data.data) {
+                temperature = data.data.temperature
+            }
+            return temperature
+        })
+        .sort((a,b) => b - a)
+        .reduce((unique, item) => {
+            return unique.includes(item) ? unique : [...unique, item]
+        }, [])
 
-        
+        const secondHighestTemp = tempSortedByHight[1]
+      
+        this.setState({
+            secondHighestTemp: secondHighestTemp
+        }, () => this.findDaysSecondHighTemp(this.state.secondHighestTemp))
     }
 
+    findDaysSecondHighTemp = (secondHighestTemp) => {
+        const temperatureData = this.state.temperatureData
+
+        const daysSecondHighTemp = temperatureData.filter(data => {
+            if(data.data && data.data.temperature) {
+                return data.data.temperature === secondHighestTemp
+            }
+        })
+        .reduce((unique, item) => {
+            return unique.includes(item.time) ? unique : [...unique, item.time]
+        }, [])
+    
+
+        this.setState({
+            daysWithSecondHighTemp: daysSecondHighTemp
+        })
+    }     
+  
 
     render() {
-    
+        const arrDaysSecondHighTemp = this.state.daysWithSecondHighTemp
         return (
-            <div>
-                
+            <div className='outer-container-temperature'>
+                <h2>Days second highest temperature</h2>   
+                <div className='inner-container'>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Second highest temperature: {this.state.secondHighestTemp}</td>
+                                {arrDaysSecondHighTemp.map(date => {
+                                    return (
+                                        <tr>
+                                            <td>{date}</td>                          
+                                        </tr>
+                                    )
+                                })}
+                            </tr>
+
+                        </tbody>
+                    </table>  
+                </div>    
             </div>
         )
     }
