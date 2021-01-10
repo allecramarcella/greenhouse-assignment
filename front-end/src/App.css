@@ -15,33 +15,28 @@
 }
 
 .header-container {
-  padding-top: 60px;
+  padding-top: 50px;
   width: 100vw;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  background-color: #043d3a;
 }
 
-.header-picture img {
-  object-fit: cover;
+.header-left {
   width: 50vw;
-  height: 300px;
 }
 
-.header-info {
+.header-left h1 {
+  padding-left: 40px;
+}
+
+.header-right {
   width: 50vw;
-  height: 300px;
   background-color: #F5F5F5;
 }
 
-.header-info h1 {
-  margin: 10px 0 0 40px;
-}
-
-.header-info h3 {
-  margin: 60px 0 0 40px;
-}
 
 .footer {
   padding-top: 20px;

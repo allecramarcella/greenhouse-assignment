@@ -1,0 +1,10 @@
+.outer-container-production{
+    padding: 0px 20px;
+}
+
+.inner-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}

@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
 import DataService from '../../services/Data-services'
 
-
 import './TomatoDisplay.css'
 
 export default class TomatoDisplay extends Component {
 
     state = {
         tomatoesData: [],
-        productionData: []
     }
 
     dataService = new DataService()
 
     componentDidMount(){
         this.getDataTomatoes()
-        this.getDataProduction()
     }
 
     getDataTomatoes = () => {
@@ -29,36 +26,8 @@ export default class TomatoDisplay extends Component {
         .catch(err => console.log(err))
     }
 
-    getDataProduction = () => {
-        this.dataService.getDataProduction()
-        .then(response => {
-            console.log('response getDataProduction', response)
-            // const date = new Data (response.harvestDate)
-            // this.setState({
-            //     productionData: response
-            // })
-            this.convertDate(response)
-        })
-        .catch(err => console.log(err))
-    }
-
-    convertDate = (productionData) => {
-        const productionDataConverted = productionData.map(data => {
-            const convertedDate = new Date(data.harvestDate).toLocaleString()
-            data.harvestDate = convertedDate
-            return data
-        })
-
-        console.log(productionDataConverted)
-        
-        this.setState({
-            productionData: productionDataConverted
-        })
-    }
-
     render() {
         const tomatoesDataArr = this.state.tomatoesData
-        const productionDataArr = this.state.productionData
 
         return (
             <div className='outer-container'>
@@ -82,7 +51,7 @@ export default class TomatoDisplay extends Component {
                                         <tr>
                                             <th>Enivronment condition</th>                           
                                         </tr>
-                                        <tr>
+                                        <tr className='low-high-row'>
                                             <td></td>
                                             <td>Low</td>  
                                             <td>High</td>  
@@ -102,12 +71,12 @@ export default class TomatoDisplay extends Component {
                                             <td>Temperature</td>
                                         </tr>
                                         <tr>
-                                            <td>Daytime</td>
+                                            <td className='temperature-label'>Daytime</td>
                                             <td>{tomato.environmentCondition.temperature.daytime.low} {tomato.environmentCondition.temperature.daytime.unit}</td> 
                                             <td>{tomato.environmentCondition.temperature.daytime.high} {tomato.environmentCondition.temperature.daytime.unit}</td>     
                                         </tr>
                                         <tr>
-                                            <td>Nighttime</td>
+                                            <td className='temperature-label'>Nighttime</td>
                                             <td>{tomato.environmentCondition.temperature.nighttime.low} {tomato.environmentCondition.temperature.nighttime.unit}</td> 
                                             <td>{tomato.environmentCondition.temperature.nighttime.high} {tomato.environmentCondition.temperature.nighttime.unit}</td> 
                                         </tr>
@@ -116,32 +85,6 @@ export default class TomatoDisplay extends Component {
                             </div>
                         )
                     })}
-
-                    {productionDataArr.map(production => {
-                        return (
-                            <div key={production._id}>
-                                <h3>{production.name}</h3>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>Harvest date</td>
-                                            <td>{production.harvestDate}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Number of plants</td>
-                                            <td>{production.numberOfPlants}</td>                               
-                                        </tr>
-                                        <tr>
-                                            <td>Weight in ton</td>
-                                            <td>{production.weightInTon}</td> 
-                                        </tr>
-                                    </tbody>
-                                </table>   
-                            </div>
-                        )
-                    })}
-
-
                 </div>
             </div>
         )

@@ -26,6 +26,24 @@ class DataService {
         })
         .catch(err => console.log(err));
     }
+
+    getDataEnvironment = () => {
+        return this.service.get('/data/environment')
+        .then(response => {
+            console.log('response getEnvironment services', response)
+            return response.data
+        })
+        .catch(err => console.log(err));
+    }
+
+    getDataTemperature = () => {
+        return this.service.get('/data/temperature')
+        .then(response => {
+            console.log('response getTemperature services', response)
+            return response.data
+        })
+        .catch(err => console.log(err));
+    }
 }
 
 export default DataService
