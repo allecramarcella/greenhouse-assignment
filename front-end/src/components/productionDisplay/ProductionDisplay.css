@@ -2,9 +2,10 @@
     padding: 0px 20px;
 }
 
-.inner-container {
+.inner-container-production {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
 }

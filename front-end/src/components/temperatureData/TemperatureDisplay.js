@@ -19,7 +19,7 @@ export default class TemperatureDisplay extends Component {
     }
 
     getDataTemperature = () => {
-        this.dataService.getDataTemperature()
+        this.dataService.getDataEnvironment()
         .then(response => {
             this.convertDate(response)
         })
@@ -27,14 +27,14 @@ export default class TemperatureDisplay extends Component {
     }
 
     convertDate = (temperatureData) => {
-        const temperatureDataConverted = temperatureData.map(data => {
+        const temperatureDateConverted = temperatureData.map(data => {
             const convertedDate = new Date(data.time).toLocaleString().slice(0, 10)
             data.time = convertedDate
             return data
         })
 
         this.setState({
-            temperatureData: temperatureDataConverted
+            temperatureData: temperatureDateConverted
         }, () => this.findSecondHighTemp(this.state.temperatureData))
     }
 
@@ -70,7 +70,6 @@ export default class TemperatureDisplay extends Component {
             return unique.includes(item.time) ? unique : [...unique, item.time]
         }, [])
     
-
         this.setState({
             daysWithSecondHighTemp: daysSecondHighTemp
         })
@@ -79,25 +78,24 @@ export default class TemperatureDisplay extends Component {
 
     render() {
         const arrDaysSecondHighTemp = this.state.daysWithSecondHighTemp
+
         return (
             <div className='outer-container-temperature'>
                 <h2>Days second highest temperature</h2>   
-                <div className='inner-container'>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Second highest temperature: {this.state.secondHighestTemp}</td>
-                                {arrDaysSecondHighTemp.map(date => {
-                                    return (
-                                        <tr>
-                                            <td>{date}</td>                          
-                                        </tr>
-                                    )
-                                })}
-                            </tr>
-
-                        </tbody>
-                    </table>  
+                <div className='temperature-info'>
+                    <div>
+                        <p>Second highest temperature: </p>
+                        <h3>{this.state.secondHighestTemp} degree</h3>
+                    </div>
+                    <div>
+                    {arrDaysSecondHighTemp.map(date => {
+                        return (
+                            <ul key={date}>
+                                <li>{date}</li>                          
+                            </ul>  
+                            )
+                    })}
+                    </div> 
                 </div>    
             </div>
         )

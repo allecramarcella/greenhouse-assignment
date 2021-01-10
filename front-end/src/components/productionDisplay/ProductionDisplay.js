@@ -44,7 +44,7 @@ export default class ProductionDisplay extends Component {
         return (
             <div className='outer-container-production'>
                 <h2>Production</h2>
-                <div className='inner-container'>
+                <div className='inner-container-production'>
                     {productionDataArr.map(production => {
                         return (
                             <div key={production._id}>

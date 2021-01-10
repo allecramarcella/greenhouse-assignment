@@ -1,12 +1,21 @@
-.outer-container-temperature{
-
+.outer-container-temperature {
         margin: 40px;
         padding: 20px;
         background-color: #F5F5F5;
-        width: 80%%;
-        height: 100%;
         display: flex;
         align-items: center;
         flex-direction: column;
-    
 }
+
+.temperature-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.temperature-info li {
+    list-style-type: none;
+}
+

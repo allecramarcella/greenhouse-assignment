@@ -36,14 +36,16 @@ class DataService {
         .catch(err => console.log(err));
     }
 
-    getDataTemperature = () => {
-        return this.service.get('/data/temperature')
+    getDataSoil = () => {
+        return this.service.get('/data/soil')
         .then(response => {
-            console.log('response getTemperature services', response)
+            console.log('response getSoil services', response)
             return response.data
         })
         .catch(err => console.log(err));
     }
+
+
 }
 
 export default DataService
