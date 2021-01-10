@@ -15,9 +15,13 @@ function App() {
           <img src={Greenhouse} alt='Greenhouse'/>
         </div>
         <div className='header-info'>
-          <TomatoDisplay />
+          <h3>Greenhouse</h3>
+          <h1>Dashboard</h1>
         </div>
       </header>
+      <section className='tomato-section'>
+        <TomatoDisplay />
+      </section>
       <footer className='footer'>
         <img src={Logo} alt='Logo Physee'/>
       </footer>

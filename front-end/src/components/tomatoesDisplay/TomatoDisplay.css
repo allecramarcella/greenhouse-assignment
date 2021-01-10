@@ -1,5 +1,13 @@
 .outer-container{
+    margin: 40px;
     background-color: #F5F5F5;
-    width: 100%;
+    width: 80%%;
     height: 100%;
+}
+
+.inner-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }

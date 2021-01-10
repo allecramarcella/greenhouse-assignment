@@ -17,6 +17,15 @@ class DataService {
         })
         .catch(err => console.log(err));
     }
+
+    getDataProduction = () => {
+        return this.service.get('/data/production')
+        .then(response => {
+            console.log('response getProduction services', response)
+            return response.data
+        })
+        .catch(err => console.log(err));
+    }
 }
 
 export default DataService

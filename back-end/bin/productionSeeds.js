@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Production = require('../models/Production-model');
+const Production = require('../models/Production-model')
 
 mongoose.connect(`mongodb://localhost/greenhouse-back-end`, {
   useCreateIndex: true,

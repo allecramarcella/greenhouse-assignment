@@ -96,8 +96,6 @@ const tomatoesData = [
  Tomatoes.create(tomatoesData)
   .then(tomatoesFromDB => {
     console.log(`Created ${tomatoesFromDB.length} tomatoes datasets`);
-  })
-  .then(response => {
     mongoose.connection.close();
   })
   .catch(err => console.log(`An error occurred while getting tomatoes datasets from the DB: ${err}`));

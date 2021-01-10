@@ -5,11 +5,24 @@ body {
   box-sizing: border-box
 }
 
-h1 {
-  font-family: museo-sans, sans-serif;;
-  color: #043d3a;
-  font-size: 50px;
-  font-weight: 500;
-  letter-spacing: 1px;
+h1, h2, h3 {
+  margin: 0;
+  padding: 0;
 }
 
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  color: #043d3a;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 60px;
+}
+
+h3 {
+  font-family: museo-sans, sans-serif;;
+  color: #64667d;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 500;
+}
