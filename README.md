@@ -2,7 +2,7 @@
 
 ### Technologies
 - Tech stack: MERN 
-I choose the MERN stack to cover the entire devlopment cycle from Front-end to Back-end using JavaScript and because it works well to store, manipulate and represent JSON data at every tier of the application. 
+I choose the MERN stack to cover the entire development cycle from Front-end to Back-end using JavaScript and because it works well to store, manipulate and represent JSON data at every tier of the application. 
 
 ### Tools 
 - create-react app | to set-up React application
@@ -29,8 +29,8 @@ npm i install
         Tomatoes.findByIdAndDelete(req.params.id)}
 - centralized axios calls into one file (Data.services.js) to create a 'bridge' between back-end and front-end
 - implemented fixed elements dashboard (nav, header, footer) in App.js 
-- retrieved information from database, coverted time notation in data production, environment and soil data, stored data in state parent component (app.js). 
-- created seperate components for each data set. I choose to display the envirnonment and soil data in charts (with chart.js) so the data is more readable for the user. Because each day consists of multiple measurment results which created a big amount of data I choose to only show the day average in the charts. 
+- retrieved information from database, converted time notation in data production, environment and soil data, stored data in state parent component (app.js). 
+- created separate components for each data set. I choose to display the environment and soil data in charts (with chart.js) so the data is more readable for the user. Because each day consists of multiple measurement results which created a big amount of data I choose to only show the day average in the charts. 
 - to show the days which had the second highest temperature I first retrieved the second highest temperature by sorting the temperature data, taking out double numbers and checking which number is the second number in the array. Then I filtered by the second highest temperature and took out double days (because of the different measurements each day). 
 
 
