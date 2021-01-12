@@ -12,7 +12,6 @@ class DataService {
     getDataTomatoes = () => {
         return this.service.get('/data/tomatoes')
         .then(response => {
-            console.log('response getTomatoes services', response)
             return response.data
         })
         .catch(err => console.log(err));
@@ -21,7 +20,6 @@ class DataService {
     getDataProduction = () => {
         return this.service.get('/data/production')
         .then(response => {
-            console.log('response getProduction services', response)
             return response.data
         })
         .catch(err => console.log(err));
@@ -30,7 +28,6 @@ class DataService {
     getDataEnvironment = () => {
         return this.service.get('/data/environment')
         .then(response => {
-            console.log('response getEnvironment services', response)
             return response.data
         })
         .catch(err => console.log(err));
@@ -39,7 +36,6 @@ class DataService {
     getDataSoil = () => {
         return this.service.get('/data/soil')
         .then(response => {
-            console.log('response getSoil services', response)
             return response.data
         })
         .catch(err => console.log(err));

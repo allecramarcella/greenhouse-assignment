@@ -14,11 +14,7 @@ const productionSchema = new Schema({
     weightInTon: {
         type: Number,
         alias: 'weight in ton',
-    },
-    tomatoes: [{
-        type: Schema.Types.ObjectId,
-        "ref": "Tomatoes",
-    }],
+    }
 })
 
 module.exports = mongoose.model("Production", productionSchema);

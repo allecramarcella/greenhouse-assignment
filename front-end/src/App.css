@@ -37,6 +37,12 @@
   background-color: #F5F5F5;
 }
 
+.section-charts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
 .footer {
   padding-top: 20px;
