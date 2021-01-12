@@ -8,7 +8,6 @@ const Soil = require('../models/Soil-model')
 router.get('/tomatoes', (req, res) => {
     Tomatoes.find()
     .then(response => {
-        console.log(response)
         res.status(200).json(response)
     })
     .catch(err => {
@@ -20,7 +19,6 @@ router.get('/tomatoes', (req, res) => {
 router.get('/production', (req, res) => {
     Production.find()
     .then(response => {
-        console.log(response)
         res.status(200).json(response)
     })
     .catch(err => {
@@ -32,7 +30,6 @@ router.get('/production', (req, res) => {
 router.get('/environment', (req, res) => {
     Environment.find()
     .then(response => {
-        console.log(response)
         res.status(200).json(response)
     })
     .catch(err => {
@@ -44,11 +41,9 @@ router.get('/environment', (req, res) => {
 router.get('/soil', (req, res) => {
     Soil.find()
     .then(response => {
-        console.log(response)
         res.status(200).json(response)
     })
     .catch(err => {
-        console.log(err)
         res.status(500).json({message:"Something went wrong"})
     }) 
 }) 

@@ -18,7 +18,6 @@ import Temperature from './components/environmentDisplay/Temperature'
 export default class App extends Component {
 
   state = {
-    tomatoesData: [],
     productionData: [],
     soilData: [],
     environmentData: []
@@ -35,16 +34,9 @@ export default class App extends Component {
     Promise.all([
       this.dataService.getDataSoil(),
       this.dataService.getDataEnvironment(),
-      this.dataService.getDataProduction(),
-      this.dataService.getDataTomatoes()
-
+      this.dataService.getDataProduction()
     ])
     .then(responseFromDB => {
-      const tomatoesDataArr = responseFromDB.splice(3,4)
-      this.setState({
-        tomatoesData: tomatoesDataArr
-      })
-
       const dataWithTimeCoverted = responseFromDB.map(data => {
         return this.convertDate(data)
       })
@@ -78,7 +70,7 @@ export default class App extends Component {
 
   render() {
 
-    if(this.state.tomatoesData.length < 1 && this.state.productionData.length < 1 && this.state.soilData.lenght < 1 && this.state.environmentData.length < 1) {
+    if(this.state.productionData.length < 1 && this.state.soilData.lenght < 1 && this.state.environmentData.length < 1) {
       return <h1>loading</h1> 
     }
 
@@ -99,7 +91,7 @@ export default class App extends Component {
 
         <main>
           <section>
-            <TomatoDisplay />
+            <TomatoDisplay/>
           </section>
           <section className='section-charts'>
             <MoistureDisplay soilData={this.state.soilData} />
