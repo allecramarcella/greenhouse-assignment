@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import DataService from '../../services/Data-services'
 
 import './TemperatureDisplay.css'
 
@@ -7,39 +6,19 @@ import './TemperatureDisplay.css'
 export default class TemperatureDisplay extends Component {
 
     state = {
-        temperatureData: [],
+        environmentData: [],
         secondHighestTemp: '',
         daysWithSecondHighTemp: []
     }
 
-    dataService = new DataService()
-
     componentDidMount(){
-        this.getDataTemperature()
-    }
-
-    getDataTemperature = () => {
-        this.dataService.getDataEnvironment()
-        .then(response => {
-            this.convertDate(response)
-        })
-        .catch(err => console.log(err))
-    }
-
-    convertDate = (temperatureData) => {
-        const temperatureDateConverted = temperatureData.map(data => {
-            const convertedDate = new Date(data.time).toLocaleString().slice(0, 10)
-            data.time = convertedDate
-            return data
-        })
-
         this.setState({
-            temperatureData: temperatureDateConverted
-        }, () => this.findSecondHighTemp(this.state.temperatureData))
+            environmentData: this.props.environmentData
+        }, () => this.findSecondHighTemp(this.state.environmentData))
     }
 
-    findSecondHighTemp = (data) => {
-        const tempSortedByHight = data.map(data => {
+    findSecondHighTemp = (environmentData) => {
+        const tempSortedByHight = environmentData.map(data => {
             let temperature
             if(data.data) {
                 temperature = data.data.temperature
@@ -55,11 +34,11 @@ export default class TemperatureDisplay extends Component {
       
         this.setState({
             secondHighestTemp: secondHighestTemp
-        }, () => this.findDaysSecondHighTemp(this.state.secondHighestTemp))
+        }, () => this.findDaysSecondHighTemp(secondHighestTemp))
     }
 
     findDaysSecondHighTemp = (secondHighestTemp) => {
-        const temperatureData = this.state.temperatureData
+        const temperatureData = this.state.environmentData
 
         const daysSecondHighTemp = temperatureData.filter(data => {
             if(data.data && data.data.temperature) {

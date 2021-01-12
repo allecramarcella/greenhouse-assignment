@@ -75,7 +75,7 @@ export default class SoilDisplayCopy extends Component {
             labels: this.state.labels,
             datasets: [
               {
-                label: 'moisture',
+                label: 'Average moisture level per day',
                 data: this.state.moistData,
                 backgroundColor: '#F5F5F5',
                 borderColor: 'black',
@@ -87,7 +87,6 @@ export default class SoilDisplayCopy extends Component {
     }
 
     render() {
-        console.log(this.state)
 
         return (
             <div className='outer-container'>

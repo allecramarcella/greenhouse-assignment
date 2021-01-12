@@ -18,7 +18,6 @@ export default class TomatoDisplay extends Component {
     getDataTomatoes = () => {
         this.dataService.getDataTomatoes()
         .then(response => {
-            console.log('response getDataTomatoes', response)
             this.setState({
                 tomatoesData: response
             })
