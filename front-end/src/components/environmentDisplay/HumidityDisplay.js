@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import Chart from 'chart.js'
 
-
-export default class PhDisplay extends Component {
+export default class HumidityDisplay extends Component {
     state = {
         labels: [],
-        phData: [],
+        humidityData: []
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.soilData !== this.props.soilData){
-            this.avageragByDay(this.props.soilData)
+        if(prevProps.environmentData !== this.props.environmentData){
+            this.avageragByDay(this.props.environmentData)
         }
     }
 
@@ -23,53 +22,52 @@ export default class PhDisplay extends Component {
             return  data.filter(data => data.time === date)
         })
 
-        const phDataPerDay = dataSetPerDay.map(dataPerDay => {
-            const phPerDay = dataPerDay.map(data =>  {
+        const humidityDataPerDay = dataSetPerDay.map(dataPerDay => {
+            const humidityPerDay = dataPerDay.map(data =>  {
                 if(data.data) {
-                    return data.data.pH
+                    return data.data['relative humidity']
                 }
             })
-            return phPerDay
+            return humidityPerDay
         })
-  
-        const onlyValidPhData = phDataPerDay.map(x => {
+
+        const onlyValidHumidityData = humidityDataPerDay.map(x => {
             const filtered = x.filter(x => x !== undefined)
             const filtteredArrLenght = filtered.length
             return filtered.reduce((a, c) => a + c )/filtteredArrLenght
         })
-
+        
         this.setState({
-            phData: onlyValidPhData,
+            humidityData: onlyValidHumidityData,
             labels: uniqueDays
-        }, this.setChart)
+        }, () => this.setChart())
     }
 
     setChart = () => {
-        const ctx = document.getElementById("myChart2");
+        const ctx = document.getElementById("myChart4");
         new Chart(ctx, {
           type: "line",
           data: {
             labels: this.state.labels,
             datasets: [
               {
-                label: 'Average ph level per day',
-                data: this.state.phData,
+                label: 'Average relative humidity level per day',
+                data: this.state.humidityData,
                 backgroundColor: '#F5F5F5',
                 borderColor: 'black',
                 borderWidth: 1
               }
             ]
           }
-        }); 
+        });
     }
 
     render() {
         return (
             <div className='outer-container'>
-                <h2>Soil data - Ph</h2>
-                 <canvas id="myChart2" width="400" height="400" />    
+                <h2>Environment data - Relative humidity</h2>
+                 <canvas id="myChart4" width="400" height="400" />    
             </div>
         )
     }
-    
 }

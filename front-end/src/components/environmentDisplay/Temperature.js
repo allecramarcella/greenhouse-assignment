@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import Chart from 'chart.js'
 
-
-export default class PhDisplay extends Component {
+export default class Temperature extends Component {
     state = {
         labels: [],
-        phData: [],
+        tempData: []
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.soilData !== this.props.soilData){
-            this.avageragByDay(this.props.soilData)
+        if(prevProps.environmentData !== this.props.environmentData){
+            this.avageragByDay(this.props.environmentData)
         }
     }
 
@@ -23,53 +22,52 @@ export default class PhDisplay extends Component {
             return  data.filter(data => data.time === date)
         })
 
-        const phDataPerDay = dataSetPerDay.map(dataPerDay => {
-            const phPerDay = dataPerDay.map(data =>  {
+        const tempDataPerDay = dataSetPerDay.map(dataPerDay => {
+            const tempPerDay = dataPerDay.map(data =>  {
                 if(data.data) {
-                    return data.data.pH
+                    return data.data['temperature']
                 }
             })
-            return phPerDay
+            return tempPerDay
         })
-  
-        const onlyValidPhData = phDataPerDay.map(x => {
+
+        const onlyValidTempData = tempDataPerDay.map(x => {
             const filtered = x.filter(x => x !== undefined)
             const filtteredArrLenght = filtered.length
             return filtered.reduce((a, c) => a + c )/filtteredArrLenght
         })
-
+        
         this.setState({
-            phData: onlyValidPhData,
+            tempData: onlyValidTempData,
             labels: uniqueDays
-        }, this.setChart)
+        }, () => this.setChart())
     }
 
     setChart = () => {
-        const ctx = document.getElementById("myChart2");
+        const ctx = document.getElementById("myChart5");
         new Chart(ctx, {
           type: "line",
           data: {
             labels: this.state.labels,
             datasets: [
               {
-                label: 'Average ph level per day',
-                data: this.state.phData,
+                label: 'Average temperature level per day',
+                data: this.state.tempData,
                 backgroundColor: '#F5F5F5',
                 borderColor: 'black',
                 borderWidth: 1
               }
             ]
           }
-        }); 
+        });
     }
 
     render() {
         return (
             <div className='outer-container'>
-                <h2>Soil data - Ph</h2>
-                 <canvas id="myChart2" width="400" height="400" />    
+                <h2>Environment data - Temperature</h2>
+                 <canvas id="myChart5" width="400" height="400" />    
             </div>
         )
     }
-    
 }

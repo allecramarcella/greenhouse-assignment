@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import Chart from 'chart.js'
 
-import './MoistureDisplay.css'
-
 
 export default class MoistureDisplay extends Component {
 

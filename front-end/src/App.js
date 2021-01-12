@@ -9,8 +9,9 @@ import TemperatureDisplay from './components/temperatureData/TemperatureDisplay'
 import DataService from './services/Data-services'
 import MoistureDisplay from './components/soilData/MoistureDisplay';
 import PhDisplay from './components/soilData/PhDisplay';
-
-
+import LightDisplay from './components/environmentDisplay/LightDisplay';
+import HumidityDisplay from './components/environmentDisplay/HumidityDisplay';
+import Temperature from './components/environmentDisplay/Temperature'
 
 
 
@@ -100,11 +101,18 @@ export default class App extends Component {
           <section>
             <TomatoDisplay />
           </section>
-          <section>
+          <section className='section-charts'>
             <MoistureDisplay soilData={this.state.soilData} />
             <PhDisplay soilData={this.state.soilData}/>
-
           </section>
+
+          <section className='section-charts'>
+            <LightDisplay environmentData={this.state.environmentData}/>
+            <Temperature environmentData={this.state.environmentData}/>
+            <HumidityDisplay environmentData={this.state.environmentData}/>
+          </section>
+
+
           <section>
             <TemperatureDisplay environmentData={this.state.environmentData} />
           </section>
