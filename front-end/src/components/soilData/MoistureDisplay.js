@@ -1,39 +1,20 @@
 import React, { Component } from 'react'
 import Chart from 'chart.js'
-import DataService from '../../services/Data-services'
 
-import './SoilDisplay.css'
+import './MoistureDisplay.css'
 
 
-export default class SoilDisplayCopy extends Component {
+export default class MoistureDisplay extends Component {
 
     state = {
         labels: [],
         moistData: []
     }
 
-    dataService = new DataService()
-
-    componentDidMount(){
-        this.getDataSoil()
-    }
-
-    getDataSoil = () => {
-        this.dataService.getDataSoil()
-        .then(response => {
-            this.convertDate(response)
-            this.setDatasets(response)
-        })
-        .catch(err => console.log(err))
-    }
-
-    convertDate = (soilData) => {
-        const soilDateConverted = soilData.map(data => {
-            const convertedDate = new Date(data.time).toLocaleString().slice(0, 10)
-            data.time = convertedDate
-            return data
-        })
-        this.avageragByDay(soilDateConverted)
+    componentDidUpdate(prevProps){
+        if(prevProps.soilData !== this.props.soilData){
+            this.avageragByDay(this.props.soilData)
+        }
     }
 
     avageragByDay = (data) => {
@@ -45,24 +26,23 @@ export default class SoilDisplayCopy extends Component {
             return  data.filter(data => data.time === date)
         })
 
-        const moistureDataPerDay = dataSetPerDay.map(element => {
-            const test = element.map(test =>  {
-                if(test.data) {
-                    return test.data.moisture
+        const moistureDataPerDay = dataSetPerDay.map(dataPerDay => {
+            const moisturePerDay = dataPerDay.map(data =>  {
+                if(data.data) {
+                    return data.data.moisture
                 }
             })
-            return test
+            return moisturePerDay
         })
 
-        const test2 = moistureDataPerDay.map(x => {
+        const onlyValidMoistureData = moistureDataPerDay.map(x => {
             const filtered = x.filter(x => x !== undefined)
-            const arrLenght = filtered.length
-            return filtered.reduce((a, c) => a + c )/arrLenght
+            const filtteredArrLenght = filtered.length
+            return filtered.reduce((a, c) => a + c )/filtteredArrLenght
         })
         
-            
         this.setState({
-            moistData: test2,
+            moistData: onlyValidMoistureData,
             labels: uniqueDays
         }, () => this.setChart())
     }
@@ -87,11 +67,9 @@ export default class SoilDisplayCopy extends Component {
     }
 
     render() {
-
         return (
             <div className='outer-container'>
-                <h2>Soil data</h2>
-                <h3>Moisture</h3>
+                <h2>Soil data - Moisture</h2>
                  <canvas id="myChart" width="400" height="400" />    
             </div>
         )

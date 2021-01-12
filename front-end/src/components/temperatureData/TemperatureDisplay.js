@@ -6,17 +6,17 @@ import './TemperatureDisplay.css'
 export default class TemperatureDisplay extends Component {
 
     state = {
-        environmentData: [],
         secondHighestTemp: '',
         daysWithSecondHighTemp: []
     }
 
-    componentDidMount(){
-        this.setState({
-            environmentData: this.props.environmentData
-        }, () => this.findSecondHighTemp(this.state.environmentData))
+    componentDidUpdate(prevProps){
+        if(prevProps.environmentData !== this.props.environmentData){
+            this.findSecondHighTemp(this.props.environmentData)
+        }
     }
 
+    // find the second highest temperature in environment data
     findSecondHighTemp = (environmentData) => {
         const tempSortedByHight = environmentData.map(data => {
             let temperature
@@ -31,14 +31,15 @@ export default class TemperatureDisplay extends Component {
         }, [])
 
         const secondHighestTemp = tempSortedByHight[1]
-      
+    
         this.setState({
-            secondHighestTemp: secondHighestTemp
+            secondHighestTemp: secondHighestTemp,
         }, () => this.findDaysSecondHighTemp(secondHighestTemp))
     }
 
+    // find days with the second highest temperature in environment data
     findDaysSecondHighTemp = (secondHighestTemp) => {
-        const temperatureData = this.state.environmentData
+        const temperatureData = this.props.environmentData
 
         const daysSecondHighTemp = temperatureData.filter(data => {
             if(data.data && data.data.temperature) {
@@ -48,15 +49,16 @@ export default class TemperatureDisplay extends Component {
         .reduce((unique, item) => {
             return unique.includes(item.time) ? unique : [...unique, item.time]
         }, [])
-    
+
         this.setState({
-            daysWithSecondHighTemp: daysSecondHighTemp
+            daysWithSecondHighTemp: daysSecondHighTemp,
         })
     }     
   
 
     render() {
         const arrDaysSecondHighTemp = this.state.daysWithSecondHighTemp
+        const secondHighestTemp = this.state.secondHighestTemp
 
         return (
             <div className='outer-container-temperature'>
@@ -64,7 +66,7 @@ export default class TemperatureDisplay extends Component {
                 <div className='temperature-info'>
                     <div>
                         <p>Second highest temperature: </p>
-                        <h3>{this.state.secondHighestTemp} degree</h3>
+                        <h3>{secondHighestTemp} degree</h3> 
                     </div>
                     <div>
                     {arrDaysSecondHighTemp.map(date => {

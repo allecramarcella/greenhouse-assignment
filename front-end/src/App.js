@@ -5,9 +5,13 @@ import Logo from '../src/assets/physee_rgb.png'
 import TomatoDisplay from './components/tomatoesDisplay/TomatoDisplay';
 import ProductionDisplay from './components/productionDisplay/ProductionDisplay';
 import TemperatureDisplay from './components/temperatureData/TemperatureDisplay';
-import SoilDisplayCopy from './components/soilData/SoilDisplay copy'
 
 import DataService from './services/Data-services'
+import MoistureDisplay from './components/soilData/MoistureDisplay';
+import PhDisplay from './components/soilData/PhDisplay';
+
+
+
 
 
 export default class App extends Component {
@@ -16,7 +20,7 @@ export default class App extends Component {
     tomatoesData: [],
     productionData: [],
     soilData: [],
-    environmentData: [],
+    environmentData: []
   }
 
   dataService = new DataService()
@@ -25,6 +29,7 @@ export default class App extends Component {
     this.getData()
   }
 
+  // get data from database
   getData = () => {
     Promise.all([
       this.dataService.getDataSoil(),
@@ -54,7 +59,8 @@ export default class App extends Component {
     .catch(err => console.log(err))
   }
 
-  convertDate = (dataFromDB) => {
+  // covert time in date
+  convertDate = (dataFromDB ) => {
     const timeSetToDate = dataFromDB.map(data => {
       if(data.time){
         const timeConverted = new Date(data.time).toLocaleString().slice(0, -8)
@@ -69,41 +75,12 @@ export default class App extends Component {
     return timeSetToDate
   }
 
-  // avageragByDay = (data) => {
-  //   const uniqueDays = data.reduce((unique, item) => {
-  //       return unique.includes(item.time) ? unique : [...unique, item.time]
-  //   }, [])
-
-  //   const dataSetPerDay = uniqueDays.map(date => {
-  //       return  data.filter(data => data.time === date)
-  //   })
-
-  //   const moistureDataPerDay = dataSetPerDay.map(element => {
-  //       const test = element.map(test =>  {
-  //           if(test.data) {
-  //               return test.data.moisture
-  //           }
-  //       })
-  //       return test
-  //   })
-
-  //   const test2 = moistureDataPerDay.map(x => {
-  //       const filtered = x.filter(x => x !== undefined)
-  //       const arrLenght = filtered.length
-  //       return filtered.reduce((a, c) => a + c )/arrLenght
-  //   })
-    
-        
-  //   this.setState({
-  //       moistData: test2,
-  //       labels: uniqueDays
-  //   }, () => this.setChart())
-  // }
-
-
-
   render() {
-    console.log(this.state)
+
+    if(this.state.tomatoesData.length < 1 && this.state.productionData.length < 1 && this.state.soilData.lenght < 1 && this.state.environmentData.length < 1) {
+      return <h1>loading</h1> 
+    }
+
     return (
       <div className="dashboard">
           <nav className='nav'>
@@ -124,10 +101,12 @@ export default class App extends Component {
             <TomatoDisplay />
           </section>
           <section>
-            <SoilDisplayCopy />
+            <MoistureDisplay soilData={this.state.soilData} />
+            <PhDisplay soilData={this.state.soilData}/>
+
           </section>
           <section>
-            <TemperatureDisplay environmentData={this.state.environmentData}/>
+            <TemperatureDisplay environmentData={this.state.environmentData} />
           </section>
         </main>
 
